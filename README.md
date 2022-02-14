@@ -4,5 +4,5 @@
   
   
 <h1> Color Palettes </h1>
-![alt text](.color palettes/colors1.jpg)
-![alt text](.color palettes/colors2.jpg)
+![alt text](.color-palettes/colors1.jpg)
+![alt text](.color-palettes/colors2.jpg)
