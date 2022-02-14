@@ -1,6 +1,6 @@
 <h1> Style Guide </h1>
 <p> We will be using eslinter and prittier for javascript for style/formatting,
-<p> along with snake_case and spaces before brackets
+<p> along with camelCase and spaces before brackets
   
   
 <h1> Color Palettes </h1>
