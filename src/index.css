@@ -13,7 +13,9 @@ code {
 }
 
 .map-container {
+  margin: auto;
   height: 400px;
+  width: 100%;
 }
 
 .sidebar {
@@ -27,6 +29,14 @@ code {
   left: 0;
   margin: 12px;
   border-radius: 4px;
+}
+
+.marker {
+  display: block;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
 }
 
 .surf-spot-card {
