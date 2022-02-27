@@ -61,6 +61,8 @@ function Map() {
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v11",
       center: [lng, lat],
+      maxZoom: 12,
+      minZoom: 4,
       zoom: zoom,
     });
     // add search bar
