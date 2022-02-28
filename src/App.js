@@ -1,21 +1,23 @@
-import "./App.css";
-import React, { useRef, useEffect, useState } from "react";
-// eslint-disable-next-line import/no-webpack-loader-syntax
-import Map from "./components/Map.js";
-import SurfSpotCard from "./components/SurfSpotCard";
-
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-/>;
-
+import React from 'react';
+import './App.css';
+import Navbar from './components/Navbar';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home.js';
+import Location2 from './pages/Location2';
+import Location1 from './pages/Location1';
 
 function App() {
   return (
-    <div>
-      <Map />
-      <SurfSpotCard />
-    </div>
+    <>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path='/' element={<Home/>} />
+          <Route path='/loc1' element={<Location1/>} />
+          <Route path='/loc2' element={<Location2/>} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 
