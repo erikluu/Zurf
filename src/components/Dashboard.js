@@ -48,7 +48,7 @@ const beachList = {
   ],
 };
 
-function Map() {
+function Dashboard() {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng, setLng] = useState(defLNG);
@@ -121,4 +121,4 @@ function Map() {
   );
 }
 
-export default Map;
+export default Dashboard;
