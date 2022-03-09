@@ -79,7 +79,7 @@ app.get("/login", (req, res) => {
       result = { users_list: result };
       res.send(result);
     } else {
-      res.send("No matching credentials");
+      res.send(404);
     }
   } else {
     res.send(users);
@@ -91,7 +91,7 @@ const authenticateUser = (email, password) => {
   if (user[0]["password"] === password) return user;
 };
 
-app.get("/locations", (req, res) => {
+app.get("/location", (req, res) => {
   const name = req.query.name;
   if (name != undefined) {
     let result = findLocationByName(name);
@@ -105,6 +105,10 @@ app.get("/locations", (req, res) => {
 const findLocationByName = (name) => {
   return locations["locations_list"].filter((location) => location["name"] === name);
 };
+
+app.get("/locations", (req, res) => {
+  res.send(locations);
+});
 
 // POST -------------------------------------------------------------------------------
 app.post("/users", (req, res) => {
