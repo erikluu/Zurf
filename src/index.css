@@ -18,6 +18,10 @@ code {
   z-index: 1;
 }
 
+.mapboxgl-ctrl button .mapboxgl-ctrl-icon {
+  margin-left: 0px;
+}
+
 .sidebar {
   background-color: rgba(35, 55, 75, 0.9);
   color: #fff;
@@ -27,8 +31,9 @@ code {
   position: absolute;
   top: 0;
   right: 0;
-  margin: 12px;
+  margin: 24px;
   border-radius: 4px;
+  font-size: large;
 }
 
 .marker {

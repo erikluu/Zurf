@@ -2,7 +2,6 @@ import "./App.css";
 import React, { useRef, useEffect, useState } from "react";
 import Navbar from './components/Navbar';
 // eslint-disable-next-line import/no-webpack-loader-syntax
-//import Dashboard from "./components/Dashboard.js";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Location2 from './pages/Location2';
 import Location1 from './pages/Location1';

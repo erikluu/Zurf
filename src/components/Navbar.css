@@ -83,3 +83,7 @@
 span {
   margin-left: 16px;
 }
+
+.span.mapboxgl-control-icon {
+  margin-left: 0px;
+}
