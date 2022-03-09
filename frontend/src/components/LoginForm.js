@@ -2,13 +2,15 @@ import axios from "axios";
 import React, { useState } from "react";
 import "../Login.css";
 
-function LoginForm({ Login, error }) {
+function LoginForm({ error }) {
   const [details, setDetails] = useState({ email: "", password: "" });
 
   const submitHandler = (e) => {
     e.preventDefault();
 
-    let result = authUser(details);
+    let result = authUser(details).then((result) => {
+      console.log(result);
+    });
   };
 
   async function authUser() {
