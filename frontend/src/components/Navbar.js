@@ -23,10 +23,10 @@ function Navbar() {
           </Link>
         </div>
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-          <ul className='nav-menu-items' onClick={showSidebar}>
+          <ul className='nav-menu-items' >
             <li className='navbar-toggle'>
               <Link to='#' className='menu-bars'>
-                <AiIcons.AiOutlineArrowLeft />
+                <AiIcons.AiOutlineArrowLeft onClick={showSidebar}/>
               </Link>
             </li>
             {SidebarData.map((item, index) => {
