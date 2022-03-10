@@ -1,18 +1,35 @@
+import axios from "axios";
 import React, { useState } from "react";
 import "../Login.css";
 
-function LoginForm({ Login, error }) {
+function LoginForm({ error }) {
   const [details, setDetails] = useState({ email: "", password: "" });
 
   const submitHandler = (e) => {
     e.preventDefault();
 
-    Login(details);
+    let result = authUser(details).then((result) => {
+      console.log(result);
+    });
   };
+
+  async function authUser() {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/login?email=${details.email}&password=${details.password}`
+      );
+      console.log(response);
+      return response;
+    } catch (error) {
+      //We're not handling errors. Just logging into the console.
+      console.log(error);
+      return false;
+    }
+  }
 
   return (
     <div className="wrapper">
-      <div class="logo">
+      <div className="logo">
         {" "}
         <img
           src="https://www.freepnglogos.com/uploads/sun-png/illustration-sun-icon-weather-hot-seem-13.png"
@@ -48,7 +65,7 @@ function LoginForm({ Login, error }) {
       </form>
       <div class="text-center fs-6">
         {" "}
-        <a href="#">Forget password?</a> or <a href="#">Sign up</a>{" "}
+        <a href="#">Don't have an account? Sign up!</a>{" "}
       </div>
     </div>
   );

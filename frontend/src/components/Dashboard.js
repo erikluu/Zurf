@@ -14,8 +14,9 @@ const morroRockLAT = 35.373504;
 const pismoLNG = -120.643497;
 const pismoLAT = 35.138778;
 
+
 // possible schema for storing beach locations
-// displays on the map based on lat/long
+// displays on the map based on lat/long 
 // should store in database and display based on filters such as which are in view
 const beachList = {
   type: "BeachCollection",
@@ -30,7 +31,7 @@ const beachList = {
         type: "Point",
         coordinates: [morroRockLNG, morroRockLAT],
       },
-      img: "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_640,q_75,w_640/v1/clients/morrobayca/temp_6b55308e-95b9-4995-9749-d7342425ff73.jpg",
+      img: "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_640,q_75,w_640/v1/clients/morrobayca/temp_6b55308e-95b9-4995-9749-d7342425ff73.jpg"
     },
     {
       type: "Beach",
@@ -43,22 +44,11 @@ const beachList = {
         coordinates: [pismoLNG, pismoLAT],
       },
       img: "https://keyt.b-cdn.net/2020/09/118794055_1429416193923564_3229598932206464322_n-1.jpg",
-    },
+    }
   ],
 };
 
-async function fetchUserData(user) {
-  try {
-    const response = await axios.get(`http://localhost:8000/users?`);
-    return response.data.users_list;
-  } catch (error) {
-    //We're not handling errors. Just logging into the console.
-    console.log(error);
-    return false;
-  }
-}
-
-function Dashboard(props) {
+function Dashboard() {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng, setLng] = useState(defLNG);
@@ -73,6 +63,7 @@ function Dashboard(props) {
       center: [lng, lat],
       zoom: zoom,
     });
+
     // add search bar
     map.current.addControl(
       new MapboxGeocoder({
@@ -117,6 +108,67 @@ function Dashboard(props) {
       setLat(map.current.getCenter().lat.toFixed(4));
       setZoom(map.current.getZoom().toFixed(2));
     });
+
+    //window.map = map;
+
+    map.current.on("load", () => {
+      fetch("https://api.rainviewer.com/public/weather-maps.json")
+        .then(res => res.json())
+        .then(apiData => {
+          apiData.radar.past.forEach(frame => {
+            map.current.addLayer({
+              id: `rainviewer_${frame.path}`,
+              type: "raster",
+              source: {
+                type: "raster",
+                tiles: [
+                  apiData.host + frame.path + '/256/{z}/{x}/{y}/2/1_1.png'
+                ],
+                tileSize: 256
+              },
+              layout: { visibility: "none" },
+              minzoom: 0,
+              maxzoom: 12
+            });
+          });
+ 
+          let i = 0;
+          const interval = setInterval(() => {
+            if (i > apiData.radar.past.length - 1) {
+              clearInterval(interval);
+              return;
+            } else {
+              apiData.radar.past.forEach((frame, index) => {
+                map.current.setLayoutProperty(
+                  `rainviewer_${frame.path}`,
+                  "visibility",
+                  index === i || index === i - 1 ? "visible" : "none"
+                );
+              });
+              if (i - 1 >= 0) {
+                const frame = apiData.radar.past[i - 1];
+                let opacity = 1;
+                setTimeout(() => {
+                  const i2 = setInterval(() => {
+                    if (opacity <= 0) {
+                      return clearInterval(i2);
+                    }
+                    map.current.setPaintProperty(
+                      `rainviewer_${frame.path}`,
+                      "raster-opacity",
+                      opacity
+                    );
+                    opacity -= 0.1;
+                  }, 50);
+                }, 400);
+              }
+              i += 1;
+            }
+          }, 2000);
+        })
+        .catch(console.error);
+    });
+ 
   });
 
   return (
