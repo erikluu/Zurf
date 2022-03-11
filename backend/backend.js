@@ -77,6 +77,7 @@ app.get("/login", (req, res) => {
   const password = req.query.password;
   if (email != undefined) {
     let result = authenticateUser(email, password);
+    
     if (result != undefined) {
       result = { users_list: result };
       res.send(result);
