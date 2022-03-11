@@ -9,10 +9,21 @@ const defLNG = -120.6252; // default lat/long is set to SLO
 const defLAT = 35.2628;
 const defZoom = 9;
 
+const defLNG = -120.6252; // default lat/long is set to SLO
+const defLAT = 35.2628;
+const defZoom = 9;
+
 const morroRockLNG = -120.864096;
 const morroRockLAT = 35.373504;
 const pismoLNG = -120.643497;
 const pismoLAT = 35.138778;
+const avilaLNG = -120.7318418;
+const avilaLAT = 35.1799752;
+const spoonersLNG = -120.8907365;
+const spoonersLAT = 35.2749753;
+const dunesLNG = -120.6251714;
+const dunesLAT = 35.0894203;
+
 var pointForecastURL = "";
 
 // possible schema for storing beach locations
@@ -31,7 +42,7 @@ const beachList = {
         type: "Point",
         coordinates: [morroRockLNG, morroRockLAT],
       },
-      img: "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_640,q_75,w_640/v1/clients/morrobayca/temp_6b55308e-95b9-4995-9749-d7342425ff73.jpg"
+      img: "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_640,q_75,w_640/v1/clients/morrobayca/temp_6b55308e-95b9-4995-9749-d7342425ff73.jpg",
     },
     {
       type: "Beach",
@@ -44,6 +55,42 @@ const beachList = {
         coordinates: [pismoLNG, pismoLAT],
       },
       img: "https://keyt.b-cdn.net/2020/09/118794055_1429416193923564_3229598932206464322_n-1.jpg",
+    },
+    {
+      type: "Beach",
+      properties: {
+        message: "Avila beach here",
+        iconSize: [60, 60],
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [avilaLNG, avilaLAT],
+      },
+      img: "https://image.arrivalguides.com/1500x600/11/ca019aca3f54a23395d704303a7dfb5c.jpg",
+    },
+    {
+      type: "Beach",
+      properties: {
+        message: "Spooner's Cove",
+        iconSize: [60, 60],
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [spoonersLNG, spoonersLAT],
+      },
+      img: "https://ewscripps.brightspotcdn.com/dims4/default/7673936/2147483647/strip/true/crop/1600x900+0+150/resize/1280x720!/quality/90/?url=http%3A%2F%2Fewscripps-brightspot.s3.amazonaws.com%2F7f%2F7c%2F40dd643041f6b033c1f178914e0b%2Fresized-resized-20211107-125504.JPEG",
+    },
+    {
+      type: "Beach",
+      properties: {
+        message: "pismo dunes",
+        iconSize: [60, 60],
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [dunesLNG, dunesLAT],
+      },
+      img: "https://nomanbefore.com/wp-content/uploads/2021/04/Pismo_Beach_Sand_Dunes_v2--e1618457672619.jpg.webp",
     },
   ],
 };
