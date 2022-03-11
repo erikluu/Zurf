@@ -14,7 +14,6 @@ const morroRockLAT = 35.373504;
 const pismoLNG = -120.643497;
 const pismoLAT = 35.138778;
 
-
 // possible schema for storing beach locations
 // displays on the map based on lat/long
 // should store in database and display based on filters such as which are in view
@@ -31,7 +30,7 @@ const beachList = {
         type: "Point",
         coordinates: [morroRockLNG, morroRockLAT],
       },
-      img: "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_640,q_75,w_640/v1/clients/morrobayca/temp_6b55308e-95b9-4995-9749-d7342425ff73.jpg"
+      img: "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_640,q_75,w_640/v1/clients/morrobayca/temp_6b55308e-95b9-4995-9749-d7342425ff73.jpg",
     },
     {
       type: "Beach",
@@ -49,16 +48,6 @@ const beachList = {
 };
 
 function Dashboard() {
-  const [userDetails, setUserDetails] = useState(() => {
-    // getting stored value
-    const saved = localStorage.getItem("user_details");
-    const initialValue = JSON.parse(saved);
-    return initialValue || "";
-  });
-
-//   let user = userDetails.data.users_list[0];
-//   console.log(user);
-
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng, setLng] = useState(defLNG);
@@ -122,22 +111,18 @@ function Dashboard() {
       setZoom(map.current.getZoom().toFixed(2));
     });
 
-
     map.current.on("load", () => {
       fetch("https://api.rainviewer.com/public/weather-maps.json")
         .then((res) => res.json())
         .then((apiData) => {
           apiData.radar.past.forEach((frame) => {
-
             map.current.addLayer({
               id: `rainviewer_${frame.path}`,
               type: "raster",
               source: {
                 type: "raster",
-                tiles: [
-                  apiData.host + frame.path + '/256/{z}/{x}/{y}/2/1_1.png'
-                ],
-                tileSize: 256
+                tiles: [apiData.host + frame.path + "/256/{z}/{x}/{y}/2/1_1.png"],
+                tileSize: 256,
               },
               layout: { visibility: "none" },
               minzoom: 0,
@@ -181,7 +166,6 @@ function Dashboard() {
         })
         .catch(console.error);
     });
- 
   });
 
   return (

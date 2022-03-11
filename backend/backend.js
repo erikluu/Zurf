@@ -9,7 +9,7 @@ const users = {
     {
       id: "xyz789",
       name: "Erik",
-      email: "eeluu19@gmail.com",
+      email: "e",
       password: "haha",
       defaultLat: 35.2628,
       defaultLng: -120.6252,
@@ -77,7 +77,7 @@ app.get("/login", (req, res) => {
   const password = req.query.password;
   if (email != undefined) {
     let result = authenticateUser(email, password);
-    
+
     if (result != undefined) {
       result = { users_list: result };
       res.send(result);
