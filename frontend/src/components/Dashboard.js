@@ -91,7 +91,7 @@ function Dashboard() {
       const mark = document.createElement("div");
       const width = marker.properties.iconSize[0];
       const height = marker.properties.iconSize[1];
-      const path = `<a href=${marker.properties.path}>`;
+      const path = `<Link to=${marker.properties.path}><Link>`;
 
       mark.className = "marker";
       mark.style.backgroundImage = `url(${marker.img})`;
