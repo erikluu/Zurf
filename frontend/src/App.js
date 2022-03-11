@@ -36,7 +36,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginForm getUser={getUser}/>} />
           <Route path="/signup" element={<SignupForm />} />
-          <Route path="/Dashboard" element={<Dashboard userData={user}/>} />
+          <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/account" element={<Account userData={user} clearUser={clearUser}/>} />
           <Route path="/support" element={<Support />} />
         </Routes>

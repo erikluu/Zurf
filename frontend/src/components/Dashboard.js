@@ -9,10 +9,6 @@ const defLNG = -120.6252; // default lat/long is set to SLO
 const defLAT = 35.2628;
 const defZoom = 9;
 
-const defLNG = -120.6252; // default lat/long is set to SLO
-const defLAT = 35.2628;
-const defZoom = 9;
-
 const morroRockLNG = -120.864096;
 const morroRockLAT = 35.373504;
 const pismoLNG = -120.643497;
@@ -95,16 +91,15 @@ const beachList = {
   ],
 };
 
-function Dashboard(props) {
+function Dashboard() {
 
-  const [userDetails, setUserDetails] = useState(() => {
-    // getting stored value
-    const saved = localStorage.getItem("user_details");
-    const initialValue = JSON.parse(saved);
-    return initialValue || "";
-  });
+  // const [userDetails, setUserDetails] = useState(() => {
+  //   // getting stored value
+  //   const saved = localStorage.getItem("user_details");
+  //   const initialValue = JSON.parse(saved);
+  //   return initialValue || "";
+  // });
 
-  const user = props.userData[0];
 
 
   const mapContainer = useRef(null);
