@@ -18,7 +18,7 @@ function Navbar() {
           <Link to='#' className='menu-bars'>
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
-          <Link to='/' className='menu-text'>
+          <Link to='/dashboard' className='menu-text'>
             <h1>Zurf</h1>
           </Link>
         </div>

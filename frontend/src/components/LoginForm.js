@@ -63,7 +63,7 @@ function LoginForm({ error }) {
           <input className="btn" type="submit" value="Login" />
         </div>
       </form>
-      <div class="text-center fs-6">
+      <div className="text-center fs-6">
         {" "}
         <a href="#">Don't have an account? Sign up!</a>{" "}
       </div>
