@@ -13,9 +13,13 @@ code {
 }
 
 .map-container {
-  margin: auto;
-  height: 400px;
+  height: 89vh;
   width: 100%;
+  z-index: 1;
+}
+
+.mapboxgl-ctrl button .mapboxgl-ctrl-icon {
+  margin-left: 0px;
 }
 
 .sidebar {
@@ -26,9 +30,10 @@ code {
   z-index: 1;
   position: absolute;
   top: 0;
-  left: 0;
-  margin: 12px;
+  right: 0;
+  margin: 24px;
   border-radius: 4px;
+  font-size: large;
 }
 
 .marker {
