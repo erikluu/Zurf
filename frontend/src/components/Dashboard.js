@@ -63,12 +63,13 @@ const beachList = {
 };
 
 function Dashboard() {
-  const [userDetails, setUserDetails] = useState(() => {
-    // getting stored value
-    const saved = localStorage.getItem("user_details");
-    const initialValue = JSON.parse(saved);
-    return initialValue || "";
-  });
+
+  // const [userDetails, setUserDetails] = useState(() => {
+  //   // getting stored value
+  //   const saved = localStorage.getItem("user_details");
+  //   const initialValue = JSON.parse(saved);
+  //   return initialValue || "";
+  // });
 
 //   let user = userDetails.data.users_list[0];
 //   console.log(user);
