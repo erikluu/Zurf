@@ -12,7 +12,6 @@ function SignupForm({ error }) {
     e.preventDefault();
     const result = await axios.post(`http://localhost:8000/users`, details);
     console.log(result);
-
     if (result) {
       console.log(result);
       console.log("Successfully signed up!");
@@ -23,32 +22,7 @@ function SignupForm({ error }) {
       navigate("/signup");
     }
   };
-
-  // async function authUser() {
-  //   try {
-  //     const handleSubmit = async (e) => {
-  //       e.preventDefault();
-  //       const result = await axios.get(
-  //        `http://localhost:8000/login?email=${details.email}&password=${details.password}`
-  //      );
-
-  //       if (result) {
-  //        //console.log(result);
-  //        console.log("correct!");
-  //         navigate("/dashboard");
-  //         return result;
-  //        } else {
-  //         console.log("wrong username and password");
-  //         navigate("/");
-  //       }
-  //     };
-  //  } catch (error) {
-  //     //We're not handling errors. Just logging into the console.
-  //     console.log("Error: " + error);
-  //     return false;
-  //   }
-  //  }
-
+  
   return (
     <div className="wrapper">
       <div className="logo">

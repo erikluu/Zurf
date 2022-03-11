@@ -4,60 +4,23 @@ import "../Login.css";
 
 import { useNavigate } from "react-router-dom";
 
-function LoginForm({ error }) {
+function LoginForm(props) {
   const [details, setDetails] = useState({ email: "", password: "" });
-  const [userDetails, setUserDetails] = useState();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // storing input name
-    localStorage.setItem("user_details", JSON.stringify(userDetails));
-  }, [userDetails]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const result = await axios.get(
+    let result = await axios.get(
       `http://localhost:8000/login?email=${details.email}&password=${details.password}`
     );
-
-    setUserDetails(result);
-
-    console.log(result);
-    if (result) {
-      console.log(result);
-      console.log("correct!");
-      navigate("/dashboard");
-      return result;
-    } else {
+    result = result.data.users_list;
+    if (result === undefined || result.length !== 1) {
       console.log("wrong username and password");
-      navigate("/");
+    } else {
+      props.getUser(result);
+      navigate("/dashboard");
     }
   };
-
-  // async function authUser() {
-  //   try {
-  //     const handleSubmit = async (e) => {
-  //       e.preventDefault();
-  //       const result = await axios.get(
-  //        `http://localhost:8000/login?email=${details.email}&password=${details.password}`
-  //      );
-
-  //       if (result) {
-  //        //console.log(result);
-  //        console.log("correct!");
-  //         navigate("/dashboard");
-  //         return result;
-  //        } else {
-  //         console.log("wrong username and password");
-  //         navigate("/");
-  //       }
-  //     };
-  //  } catch (error) {
-  //     //We're not handling errors. Just logging into the console.
-  //     console.log("Error: " + error);
-  //     return false;
-  //   }
-  //  }
 
   return (
     <div className="wrapper">
@@ -71,7 +34,6 @@ function LoginForm({ error }) {
       <form onSubmit={submitHandler}>
         <div className="name">
           <h2>Login</h2>
-          {error !== "" ? <div className="error">{error}</div> : ""}
           <div className="form-field">
             <label html="email">Email:</label>
             <input

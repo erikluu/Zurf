@@ -17,15 +17,21 @@ import Loc2 from "./pages/Location2"
 
 function App() {
 
+  const [user, setUser] = useState();
+
+  function getUser(person) {
+    setUser(person);
+  }
+
   return (
     <>
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<LoginForm />} />
+          <Route path="/" element={<LoginForm getUser={getUser}/>} />
           <Route path="/signup" element={<SignupForm />} />
           <Route path="/Dashboard" element={<Dashboard />} />
-          <Route path="/account" element={<Account />} />
+          <Route path="/account" element={<Account userData={user}/>} />
           <Route path="/loc1" element={<Loc1 />} />
           <Route path="/loc2" element={<Loc2 />} />
         </Routes>

@@ -60,8 +60,22 @@ async function findUserByEmail(email) {
   return await userModel.find({ email: email });
 }
 
+async function authUser(email, password) {
+  let result;
+  if (email === undefined || password === undefined) {
+    return result;
+  } else if (email && password) {
+    console.log("nice")
+    result = await userModel.find({ email: email, password: password });
+    return result;
+  } else {
+    return result;
+  }
+}
+
 exports.getUsers = getUsers;
 exports.findUserById = findUserById;
 exports.addUser = addUser;
 exports.deleteUserById = deleteUserById;
 exports.findUserByEmail = findUserByEmail;
+exports.authUser = authUser;

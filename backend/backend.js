@@ -6,28 +6,28 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 
-const users = {
-  users_list: [
-    {
-      id: "xyz789",
-      name: "Erik",
-      email: "e",
-      password: "haha",
-      defaultLat: 35.2628,
-      defaultLng: -120.6252,
-      favorites: ["morro123", "pismo123"],
-    },
-    {
-      id: "stupidman",
-      name: "Carlo",
-      email: "carlo@gmail.com",
-      password: "dumb",
-      defaultLat: 35.2628,
-      defaultLng: -120.6252,
-      favorites: ["morro123"],
-    },
-  ],
-};
+// const users = {
+//   users_list: [
+//     {
+//       id: "xyz789",
+//       name: "Erik",
+//       email: "e",
+//       password: "haha",
+//       defaultLat: 35.2628,
+//       defaultLng: -120.6252,
+//       favorites: ["morro123", "pismo123"],
+//     },
+//     {
+//       id: "stupidman",
+//       name: "Carlo",
+//       email: "carlo@gmail.com",
+//       password: "dumb",
+//       defaultLat: 35.2628,
+//       defaultLng: -120.6252,
+//       favorites: ["morro123"],
+//     },
+//   ],
+// };
 
 const locations = {
   locations_list: [
@@ -72,7 +72,7 @@ app.get("/users", async (req, res) => {
 
 app.get("/users/:id", async (req, res) => {
   const id = req.params.id;
-  const result = userServices.findUserById(id);
+  let result = userServices.findUserById(id);
   if (result === undefined || result.length === null)
     res.status(404).send("Resource not found.");
   else {
@@ -81,37 +81,21 @@ app.get("/users/:id", async (req, res) => {
   }
 });
 
-// const findUserByEmail = (email) => {
-//   return users["users_list"].filter((user) => user["email"] === email);
-// };
-
-// app.get("/users", (req, res) => {
-//   res.send(users);
-// });
-
 // user authetication
-app.get("/login", (req, res) => {
+app.get("/login", async (req, res) => {
+  console.log("attempt");
   const email = req.query.email;
   const password = req.query.password;
-  if (password === undefined || password.length == 0)
-    res.send(404);
-  if (email != undefined) {
-    let result = authenticateUser(email, password);
-    if (result != undefined) {
-      result = { users_list: result };
-      res.send(result);
-    } else {
-      res.send(404);
-    }
-  } else {
-    res.send(users);
+  try {
+    let result = await userServices.authUser(email, password);
+    result = { users_list: result };
+    console.log(result)
+    res.send(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("An error occured in the server");
   }
 });
-
-const authenticateUser = async (email, password) => {
-  const user = await users.findUserByEmail(email);
-  if (user[0]["password"] === password) return user;
-};
 
 // app.get("/location", (req, res) => {
 //   const name = req.query.name;
