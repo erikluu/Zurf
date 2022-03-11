@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "./Page.css";
 
 
-function Account(props) {
+function BeachCard(props) {
   const user = props.userData[0];
+  const beach = user.beaches[props.index]
   const navigate = useNavigate();
 
   function handleSubmit(e) {
@@ -30,11 +31,8 @@ function Account(props) {
       <button className="btn" onClick={handleSubmit}>
         Log Out
       </button>
-
     </div>
-    
-    
   );
 }
 
-export default Account;
+export default BeachCard

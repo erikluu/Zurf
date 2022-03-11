@@ -6,7 +6,6 @@ import * as GiIcons from 'react-icons/gi';
 export const SidebarData = [
   {
     title: 'Home',
-
     path: '/dashboard',
     icon: <AiIcons.AiFillHome />,
     cName: 'nav-text'
@@ -29,12 +28,6 @@ export const SidebarData = [
     title: 'Account',
     path: '/account',
     icon: <IoIcons.IoMdPeople />,
-    cName: 'nav-text'
-  },
-  {
-    title: 'Zurf',
-    path: '/zurf',
-    icon: <GiIcons.GiSurferVan />,
     cName: 'nav-text'
   },
   {

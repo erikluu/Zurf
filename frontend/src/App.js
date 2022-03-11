@@ -6,9 +6,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm";
 import Dashboard from "./components/Dashboard";
-import Account from "./pages/Account"
-import Loc1 from "./pages/Location1"
-import Loc2 from "./pages/Location2"
+import Account from "./pages/Account";
+import Support from "./pages/Support";
+import Loc1 from "./pages/Location1";
+import Loc2 from "./pages/Location2";
+import BeachCard from "./pages/BeachCard";
 
 <link
   rel="stylesheet"
@@ -36,8 +38,7 @@ function App() {
           <Route path="/signup" element={<SignupForm />} />
           <Route path="/Dashboard" element={<Dashboard userData={user}/>} />
           <Route path="/account" element={<Account userData={user} clearUser={clearUser}/>} />
-          <Route path="/loc1" element={<Loc1 />} />
-          <Route path="/loc2" element={<Loc2 />} />
+          <Route path="/support" element={<Support />} />
         </Routes>
       </Router>
     </>

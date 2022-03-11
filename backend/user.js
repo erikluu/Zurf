@@ -22,6 +22,10 @@ const UserSchema = new mongoose.Schema(
         if (value.length < 5) throw new Error("Invalid Password");
       },
     },
+    beaches: {
+      type: Array,
+      required: false,
+    }
   },
   { collection: "users_list" }
 );
