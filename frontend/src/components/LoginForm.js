@@ -2,30 +2,54 @@ import axios from "axios";
 import React, { useState } from "react";
 import "../Login.css";
 
+
+import { useNavigate } from "react-router-dom";
+
 function LoginForm({ error }) {
   const [details, setDetails] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
 
-  const submitHandler = (e) => {
-    e.preventDefault();
+  const submitHandler = async (e) => {
+   e.preventDefault();
+   const result = await axios.get(
+    `http://localhost:8000/login?email=${details.email}&password=${details.password}`
+  );
 
-    let result = authUser(details).then((result) => {
-      console.log(result);
-    });
-  };
+   if (result) {
+    console.log(result);
+    console.log("correct!");
+     navigate("/dashboard");
+     return result;    
+    } else {
+     console.log("wrong username and password");
+     navigate("/");
+   }
+ };
 
   async function authUser() {
-    try {
-      const response = await axios.get(
-        `http://localhost:8000/login?email=${details.email}&password=${details.password}`
-      );
-      console.log(response);
-      return response;
-    } catch (error) {
+    try { 
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        const result = await axios.get(
+         `http://localhost:8000/login?email=${details.email}&password=${details.password}`
+       );
+     
+        if (result) {
+         //console.log(result);
+         console.log("correct!");
+          navigate("/dashboard");
+          return result;    
+         } else {
+          console.log("wrong username and password");
+          navigate("/");
+        }
+      };
+   } catch (error) {
       //We're not handling errors. Just logging into the console.
-      console.log(error);
+      console.log("Error: " + error);
       return false;
-    }
-  }
+    }  
+   }
 
   return (
     <div className="wrapper">
