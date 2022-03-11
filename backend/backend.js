@@ -67,7 +67,7 @@ app.get("/", (req, res) => {
 
 app.get("/users", async (req, res) => {
   const name = req.query.name;
-  const job = req.query.email;
+  const email = req.query.email;
   try {
     const result = await userServices.getUsers(name, email);
     res.send({ users_list: result });
