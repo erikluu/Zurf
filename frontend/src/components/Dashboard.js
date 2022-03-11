@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
+import { SidebarData } from "./SidebarData";
+import { Link } from "react-router-dom";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiY3J1Z2dnaWVybyIsImEiOiJja3pteWFjMTAxZ2k3MndueHZnbmhuaDN2In0.N9uLqiw04di8ghl1-KUkdw";
@@ -15,7 +17,7 @@ const pismoLNG = -120.643497;
 const pismoLAT = 35.138778;
 
 // possible schema for storing beach locations
-// displays on the map based on lat/long
+// displays on the map based on lat/long 
 // should store in database and display based on filters such as which are in view
 const beachList = {
   type: "BeachCollection",
@@ -25,25 +27,28 @@ const beachList = {
       properties: {
         message: "Its Morro Rock dude",
         iconSize: [60, 60],
+        path: "/loc1",
       },
       geometry: {
         type: "Point",
         coordinates: [morroRockLNG, morroRockLAT],
       },
-      img: "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_640,q_75,w_640/v1/clients/morrobayca/temp_6b55308e-95b9-4995-9749-d7342425ff73.jpg",
+      img: "https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_640,q_75,w_640/v1/clients/morrobayca/temp_6b55308e-95b9-4995-9749-d7342425ff73.jpg"
+
     },
     {
       type: "Beach",
       properties: {
         message: "its pismo beach bro",
         iconSize: [60, 60],
+        path: "/loc2",
       },
       geometry: {
         type: "Point",
         coordinates: [pismoLNG, pismoLAT],
       },
       img: "https://keyt.b-cdn.net/2020/09/118794055_1429416193923564_3229598932206464322_n-1.jpg",
-    },
+    }
   ],
 };
 
@@ -93,14 +98,20 @@ function Dashboard() {
       const mark = document.createElement("div");
       const width = marker.properties.iconSize[0];
       const height = marker.properties.iconSize[1];
+
+      const path = `<Link to=href=${marker.properties.path}></Link>`;
+
       mark.className = "marker";
       mark.style.backgroundImage = `url(${marker.img})`;
       mark.style.width = `${width}px`;
       mark.style.height = `${height}px`;
       mark.style.backgroundSize = "100%";
 
+      mark.innerHTML = path;
+
       mark.addEventListener("click", () => {
-        window.alert(marker.properties.message);
+        //window.alert(marker.properties.message);
+        console.log("clicked");
       });
       // Add markers to the map.
       new mapboxgl.Marker(mark).setLngLat(marker.geometry.coordinates).addTo(map.current);
@@ -115,6 +126,7 @@ function Dashboard() {
       setZoom(map.current.getZoom().toFixed(2));
     });
 
+
     //window.map = map;
 
     map.current.on("load", () => {
@@ -122,20 +134,26 @@ function Dashboard() {
         .then((res) => res.json())
         .then((apiData) => {
           apiData.radar.past.forEach((frame) => {
+        .then(res => res.json())
+        .then(apiData => {
+          apiData.radar.past.forEach(frame => {
             map.current.addLayer({
               id: `rainviewer_${frame.path}`,
               type: "raster",
               source: {
                 type: "raster",
-                tiles: [apiData.host + frame.path + "/256/{z}/{x}/{y}/2/1_1.png"],
-                tileSize: 256,
+                
+                tiles: [
+                  apiData.host + frame.path + '/256/{z}/{x}/{y}/2/1_1.png'
+                ],
+                tileSize: 256
               },
               layout: { visibility: "none" },
               minzoom: 0,
-              maxzoom: 12,
+              maxzoom: 12
             });
           });
-
+ 
           let i = 0;
           const interval = setInterval(() => {
             if (i > apiData.radar.past.length - 1) {
