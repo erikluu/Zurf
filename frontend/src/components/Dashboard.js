@@ -13,9 +13,7 @@ const morroRockLNG = -120.864096;
 const morroRockLAT = 35.373504;
 const pismoLNG = -120.643497;
 const pismoLAT = 35.138778;
-const avilaLNG = -120.7318418; 
-const avilaLAT = 35.1799752;
-
+var pointForecastURL = "";
 
 // possible schema for storing beach locations
 // displays on the map based on lat/long
@@ -47,22 +45,21 @@ const beachList = {
       },
       img: "https://keyt.b-cdn.net/2020/09/118794055_1429416193923564_3229598932206464322_n-1.jpg",
     },
-    {
-      type: "Beach",
-      properties: {
-        message: "Avila",
-        iconSize: [60, 60],
-      },
-      geometry: {
-        type: "Point",
-        coordinates: [avilaLNG, avilaLAT],
-      },
-      img: "https://image.arrivalguides.com/415x300/11/ca019aca3f54a23395d704303a7dfb5c.jpg"
-    },
   ],
 };
 
 function Dashboard() {
+  
+  // const [userDetails, setUserDetails] = useState(() => {
+  //   // getting stored value
+  //   const saved = localStorage.getItem("user_details");
+  //   const initialValue = JSON.parse(saved);
+  //   return initialValue || "";
+  // });
+
+//   let user = userDetails.data.users_list[0];
+//   console.log(user);
+
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng, setLng] = useState(defLNG);
@@ -111,7 +108,11 @@ function Dashboard() {
       mark.style.backgroundSize = "100%";
 
       mark.addEventListener("click", () => {
-        window.alert(marker.properties.message);
+         fetchWeatherData(marker.geometry.coordinates[1], marker.geometry.coordinates[0]);
+         //SET THIS TO TRUE TO ENABLE STORMGLASS REQUESTS (LIMIT OF 10 PER DAY, I THINK I'VE USED 4-5, SO 5-ISH REQUESTS LEFT TO USE ON DEMO)
+         if (false) {
+            fetchStormglassData(marker.geometry.coordinates[1],marker.geometry.coordinates[0]);
+         }
       });
       // Add markers to the map.
       new mapboxgl.Marker(mark).setLngLat(marker.geometry.coordinates).addTo(map.current);
@@ -125,8 +126,6 @@ function Dashboard() {
       setLat(map.current.getCenter().lat.toFixed(4));
       setZoom(map.current.getZoom().toFixed(2));
     });
-
-
     map.current.on("load", () => {
       fetch("https://api.rainviewer.com/public/weather-maps.json")
         .then((res) => res.json())
@@ -187,6 +186,71 @@ function Dashboard() {
     });
  
   });
+
+  function fetchPointDailyForecast(URL) {
+   var pointForecast;
+
+   new Promise(function (resolve, reject) { 
+   fetch(URL)
+   .then(function (response) {
+     if (response.status === 200) {
+       return response.json();
+     } else {
+        console.log(URL);
+        console.log("error fetching forecast data.");
+       reject(response.status);
+     }
+   })
+   .then(function (parsedResponse) {
+     pointForecast = JSON.stringify(parsedResponse.properties.periods[0]);
+     resolve(parsedResponse);
+
+     console.log(pointForecast);
+     window.alert(pointForecast);
+   });
+});
+  }
+
+  function fetchWeatherData(latitude, longitude) {
+   new Promise(function (resolve, reject) {
+     fetch(
+       "https://api.weather.gov/points/" +
+         latitude +
+         "," +
+         longitude)
+       .then(function (response) {
+         if (response.status === 200) {
+           return response.json();
+         } else {
+            console.log(
+               "https://api.weather.gov/points/" +
+                 latitude +
+                 "," +
+                 longitude)
+            console.log("error fetching weather data.")
+           reject(response.status);
+         }
+       })
+       .then(function (parsedResponse) {
+         pointForecastURL = parsedResponse.properties.forecast;
+         console.log(pointForecastURL);
+         resolve(parsedResponse);
+         fetchPointDailyForecast(pointForecastURL);
+      })
+   });
+}
+
+function fetchStormglassData (lat, lng) {
+   var params = 'waterTemperature,waveHeight,waveDirection,wavePeriod,swellHeight,swellDirection,swellPeriod'
+   fetch(`https://api.stormglass.io/v2/weather/point?lat=${lat}&lng=${lng}&params=${params}`, {
+      headers: {
+        'Authorization': 'a5685598-a106-11ec-b2a7-0242ac130002-a5685606-a106-11ec-b2a7-0242ac130002'
+      }
+    }).then((response) => response.json()).then((jsonData) => {
+      console.log(jsonData.hours[0]);
+      window.alert(JSON.stringify(jsonData.hours[0]));
+    });
+}
 
   return (
     <div>
