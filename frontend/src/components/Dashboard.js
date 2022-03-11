@@ -48,17 +48,17 @@ const beachList = {
   ],
 };
 
-function Dashboard() {
-  
-  // const [userDetails, setUserDetails] = useState(() => {
-  //   // getting stored value
-  //   const saved = localStorage.getItem("user_details");
-  //   const initialValue = JSON.parse(saved);
-  //   return initialValue || "";
-  // });
+function Dashboard(props) {
 
-//   let user = userDetails.data.users_list[0];
-//   console.log(user);
+  const [userDetails, setUserDetails] = useState(() => {
+    // getting stored value
+    const saved = localStorage.getItem("user_details");
+    const initialValue = JSON.parse(saved);
+    return initialValue || "";
+  });
+  
+  const user = props.userData[0];
+
 
   const mapContainer = useRef(null);
   const map = useRef(null);
