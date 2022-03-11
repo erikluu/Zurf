@@ -1,8 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
-import { SidebarData } from "./SidebarData";
-import { Link } from "react-router-dom";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiY3J1Z2dnaWVybyIsImEiOiJja3pteWFjMTAxZ2k3MndueHZnbmhuaDN2In0.N9uLqiw04di8ghl1-KUkdw";
@@ -18,7 +16,7 @@ const pismoLAT = 35.138778;
 
 
 // possible schema for storing beach locations
-// displays on the map based on lat/long 
+// displays on the map based on lat/long
 // should store in database and display based on filters such as which are in view
 const beachList = {
   type: "BeachCollection",
@@ -28,7 +26,6 @@ const beachList = {
       properties: {
         message: "Its Morro Rock dude",
         iconSize: [60, 60],
-        path: "/loc1",
       },
       geometry: {
         type: "Point",
@@ -41,18 +38,27 @@ const beachList = {
       properties: {
         message: "its pismo beach bro",
         iconSize: [60, 60],
-        path: "/loc2",
       },
       geometry: {
         type: "Point",
         coordinates: [pismoLNG, pismoLAT],
       },
       img: "https://keyt.b-cdn.net/2020/09/118794055_1429416193923564_3229598932206464322_n-1.jpg",
-    }
+    },
   ],
 };
 
 function Dashboard() {
+  const [userDetails, setUserDetails] = useState(() => {
+    // getting stored value
+    const saved = localStorage.getItem("user_details");
+    const initialValue = JSON.parse(saved);
+    return initialValue || "";
+  });
+
+//   let user = userDetails.data.users_list[0];
+//   console.log(user);
+
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng, setLng] = useState(defLNG);
@@ -91,6 +97,7 @@ function Dashboard() {
       const mark = document.createElement("div");
       const width = marker.properties.iconSize[0];
       const height = marker.properties.iconSize[1];
+
       const path = `<Link to=href=${marker.properties.path}></Link>`;
 
       mark.className = "marker";
@@ -99,11 +106,8 @@ function Dashboard() {
       mark.style.height = `${height}px`;
       mark.style.backgroundSize = "100%";
 
-      mark.innerHTML = path;
-
       mark.addEventListener("click", () => {
-        //window.alert(marker.properties.message);
-        console.log("clicked");
+        window.alert(marker.properties.message);
       });
       // Add markers to the map.
       new mapboxgl.Marker(mark).setLngLat(marker.geometry.coordinates).addTo(map.current);
@@ -118,14 +122,13 @@ function Dashboard() {
       setZoom(map.current.getZoom().toFixed(2));
     });
 
-    //what does this do
-    //window.map = map;
 
     map.current.on("load", () => {
       fetch("https://api.rainviewer.com/public/weather-maps.json")
-        .then(res => res.json())
-        .then(apiData => {
-          apiData.radar.past.forEach(frame => {
+        .then((res) => res.json())
+        .then((apiData) => {
+          apiData.radar.past.forEach((frame) => {
+
             map.current.addLayer({
               id: `rainviewer_${frame.path}`,
               type: "raster",
@@ -138,10 +141,10 @@ function Dashboard() {
               },
               layout: { visibility: "none" },
               minzoom: 0,
-              maxzoom: 12
+              maxzoom: 12,
             });
           });
- 
+
           let i = 0;
           const interval = setInterval(() => {
             if (i > apiData.radar.past.length - 1) {
