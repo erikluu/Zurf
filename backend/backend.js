@@ -1,14 +1,7 @@
-// const cors = require("cors");
-// const express = require("express");
-// const app = express();
-// app.use(cors());
-// const port = 8000;
-// app.use(express.json());
-
 const express = require("express");
 const userServices = require("./user-services");
 const app = express();
-const port = 5000;
+const port = 8000;
 const cors = require("cors");
 app.use(cors());
 app.use(express.json());

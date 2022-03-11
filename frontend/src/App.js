@@ -6,9 +6,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm";
 import Dashboard from "./components/Dashboard";
-import Account from "./pages/Account";
-import Loc1 from "./pages/Location1";
-import Loc2 from "./pages/Location2";
+import Account from "./pages/Account"
+import Loc1 from "./pages/Location1"
+import Loc2 from "./pages/Location2"
 
 <link
   rel="stylesheet"
@@ -16,6 +16,7 @@ import Loc2 from "./pages/Location2";
 />;
 
 function App() {
+
   return (
     <>
       <Router>
@@ -23,7 +24,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginForm />} />
           <Route path="/signup" element={<SignupForm />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/account" element={<Account />} />
           <Route path="/loc1" element={<Loc1 />} />
           <Route path="/loc2" element={<Loc2 />} />
