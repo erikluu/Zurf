@@ -34,6 +34,7 @@ function LoginForm(props) {
       <form onSubmit={submitHandler}>
         <div className="name">
           <h2>Login</h2>
+          {/*{error !== "" ? <div className="error">{error}</div> : ""}*/}
           <div className="form-field">
             <label html="email">Email:</label>
             <input

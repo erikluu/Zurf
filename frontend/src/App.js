@@ -23,6 +23,10 @@ function App() {
     setUser(person);
   }
 
+  function clearUser() {
+    setUser(undefined);
+  }
+
   return (
     <>
       <Router>
@@ -31,7 +35,7 @@ function App() {
           <Route path="/" element={<LoginForm getUser={getUser}/>} />
           <Route path="/signup" element={<SignupForm />} />
           <Route path="/Dashboard" element={<Dashboard userData={user}/>} />
-          <Route path="/account" element={<Account userData={user}/>} />
+          <Route path="/account" element={<Account userData={user} clearUser={clearUser}/>} />
           <Route path="/loc1" element={<Loc1 />} />
           <Route path="/loc2" element={<Loc2 />} />
         </Routes>

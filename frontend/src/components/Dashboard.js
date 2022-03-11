@@ -56,7 +56,7 @@ function Dashboard(props) {
     const initialValue = JSON.parse(saved);
     return initialValue || "";
   });
-  
+
   const user = props.userData[0];
 
 
@@ -126,6 +126,9 @@ function Dashboard(props) {
       setLat(map.current.getCenter().lat.toFixed(4));
       setZoom(map.current.getZoom().toFixed(2));
     });
+
+    window.map = map;
+
     map.current.on("load", () => {
       fetch("https://api.rainviewer.com/public/weather-maps.json")
         .then((res) => res.json())

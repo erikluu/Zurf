@@ -17,17 +17,15 @@ function Navbar() {
           <Link to='#' className='menu-bars'>
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
-
           <Link to='/dashboard' className='menu-text'>
-
             <h1>Zurf</h1>
           </Link>
         </div>
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
-          <ul className='nav-menu-items'>
+          <ul className='nav-menu-items' onClick={showSidebar}>
             <li className='navbar-toggle'>
               <Link to='#' className='menu-bars'>
-                <AiIcons.AiOutlineArrowLeft onClick={showSidebar}/>
+                <AiIcons.AiOutlineArrowLeft />
               </Link>
             </li>
             {SidebarData.map((item, index) => {
