@@ -13,6 +13,8 @@ const morroRockLNG = -120.864096;
 const morroRockLAT = 35.373504;
 const pismoLNG = -120.643497;
 const pismoLAT = 35.138778;
+const avilaLNG = -120.7318418;
+const avilaLAT = 35.1799752;
 
 // possible schema for storing beach locations
 // displays on the map based on lat/long
@@ -43,6 +45,18 @@ const beachList = {
         coordinates: [pismoLNG, pismoLAT],
       },
       img: "https://keyt.b-cdn.net/2020/09/118794055_1429416193923564_3229598932206464322_n-1.jpg",
+    },
+    {
+      type: "Beach",
+      properties: {
+        message: "Avila",
+        iconSize: [60, 60],
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [avilaLNG, avilaLAT],
+      },
+      img: "https://image.arrivalguides.com/415x300/11/ca019aca3f54a23395d704303a7dfb5c.jpg",
     },
   ],
 };
