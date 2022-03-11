@@ -108,6 +108,10 @@ function Dashboard() {
 
       mark.addEventListener("click", () => {
          fetchWeatherData(marker.geometry.coordinates[1], marker.geometry.coordinates[0]);
+         //SET THIS TO TRUE TO ENABLE STORMGLASS REQUESTS (LIMIT OF 10 PER DAY, I THINK I'VE USED 4-5, SO 5-ISH REQUESTS LEFT TO USE ON DEMO)
+         if (false) {
+            fetchStormglassData(marker.geometry.coordinates[1],marker.geometry.coordinates[0]);
+         }
       });
       // Add markers to the map.
       new mapboxgl.Marker(mark).setLngLat(marker.geometry.coordinates).addTo(map.current);
@@ -121,8 +125,6 @@ function Dashboard() {
       setLat(map.current.getCenter().lat.toFixed(4));
       setZoom(map.current.getZoom().toFixed(2));
     });
-
-
     map.current.on("load", () => {
       fetch("https://api.rainviewer.com/public/weather-maps.json")
         .then((res) => res.json())
@@ -235,7 +237,18 @@ function Dashboard() {
          fetchPointDailyForecast(pointForecastURL);
       })
    });
+}
 
+function fetchStormglassData (lat, lng) {
+   var params = 'waterTemperature,waveHeight,waveDirection,wavePeriod,swellHeight,swellDirection,swellPeriod'
+   fetch(`https://api.stormglass.io/v2/weather/point?lat=${lat}&lng=${lng}&params=${params}`, {
+      headers: {
+        'Authorization': 'a5685598-a106-11ec-b2a7-0242ac130002-a5685606-a106-11ec-b2a7-0242ac130002'
+      }
+    }).then((response) => response.json()).then((jsonData) => {
+      console.log(jsonData.hours[0]);
+      window.alert(JSON.stringify(jsonData.hours[0]));
+    });
 }
 
   return (
