@@ -4,33 +4,23 @@ import "../Login.css";
 
 import { useNavigate } from "react-router-dom";
 
-function LoginForm({ error }) {
-  const [details, setDetails] = useState({ email: "", password: "" });
-  const [userDetails, setUserDetails] = useState();
+function SignupForm({ error }) {
+  const [details, setDetails] = useState({ name: "", email: "", password: "" });
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // storing input name
-    localStorage.setItem("user_details", JSON.stringify(userDetails));
-  }, [userDetails]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const result = await axios.get(
-      `http://localhost:8000/login?email=${details.email}&password=${details.password}`
-    );
-
-    setUserDetails(result);
-
+    const result = await axios.post(`http://localhost:8000/users`, details);
     console.log(result);
+
     if (result) {
       console.log(result);
-      console.log("correct!");
-      navigate("/dashboard");
+      console.log("Successfully signed up!");
+      navigate("/");
       return result;
     } else {
-      console.log("wrong username and password");
-      navigate("/");
+      console.log("Something went wrong");
+      navigate("/signup");
     }
   };
 
@@ -70,8 +60,18 @@ function LoginForm({ error }) {
       </div>
       <form onSubmit={submitHandler}>
         <div className="name">
-          <h2>Login</h2>
+          <h2>Sign Up</h2>
           {error !== "" ? <div className="error">{error}</div> : ""}
+          <div className="form-field">
+            <label html="name">Name:</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              onChange={(e) => setDetails({ ...details, name: e.target.value })}
+              value={details.name}
+            />
+          </div>
           <div className="form-field">
             <label html="email">Email:</label>
             <input
@@ -92,16 +92,11 @@ function LoginForm({ error }) {
               value={details.password}
             />
           </div>
-          <input className="btn" type="submit" value="Login" />
+          <input className="btn" type="submit" value="Sign Up" />
         </div>
       </form>
-
-      <div className="text-center fs-6">
-        {" "}
-        <a href="/Signup">Don't have an account? Sign up!</a>{" "}
-      </div>
     </div>
   );
 }
 
-export default LoginForm;
+export default SignupForm;
