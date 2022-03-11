@@ -5,6 +5,9 @@ import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginForm from "./components/LoginForm";
 import Dashboard from "./components/Dashboard";
+import Account from "./pages/Account"
+import Loc1 from "./pages/Location1"
+import Loc2 from "./pages/Location2"
 
 <link
   rel="stylesheet"
@@ -19,6 +22,9 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginForm />} />
           <Route path="/Dashboard" element={<Dashboard />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/loc1" element={<Loc1 />} />
+          <Route path="/loc2" element={<Loc2 />} />
         </Routes>
       </Router>
     </>
