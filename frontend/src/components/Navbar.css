@@ -19,7 +19,9 @@
   list-style: none;
   text-align: center;
   text-decoration: none;
-  margin: auto;
+  position:relative;
+  margin: 0  auto;
+  left: -30px;
   height: 0px;
   font-size: 35px;
 }
