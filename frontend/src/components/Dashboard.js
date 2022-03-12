@@ -152,7 +152,7 @@ function Dashboard() {
       mark.addEventListener("click", () => {
          fetchWeatherData(marker.geometry.coordinates[1], marker.geometry.coordinates[0]);
          //SET THIS TO TRUE TO ENABLE STORMGLASS REQUESTS (LIMIT OF 10 PER DAY, I THINK I'VE USED 4-5, SO 5-ISH REQUESTS LEFT TO USE ON DEMO)
-         if (false) {
+         if (true) {
             fetchStormglassData(marker.geometry.coordinates[1],marker.geometry.coordinates[0]);
          }
       });
