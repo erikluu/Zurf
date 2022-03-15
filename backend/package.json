@@ -4,7 +4,7 @@
   "description": "backend for Zurf",
   "main": "backend.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "react-scripts test",
     "dev": "nodemon backend.js",
     "start": "node backend.js"
   },
@@ -12,13 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-<<<<<<< Updated upstream
-    "express": "^4.17.3"
-=======
     "express": "^4.17.3",
     "jest": "^27.5.1",
     "mongoose": "^6.2.5"
->>>>>>> Stashed changes
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
