@@ -34,3 +34,6 @@ https://drive.google.com/file/d/15aXLCXb1MolxZ9BHV0tOR5p8QVCLlIBe/view?usp=shari
 # Case Diagram (last updated 2/4/2022):
 
 https://drive.google.com/file/d/1P3qQhDdDaRY66DZTMGI15LgyAwXYmyN8/view?usp=sharing
+
+# Test Coverage
+![alt text](http://github/erikluu/Zurf/test_case_coverage_report.PNG)
