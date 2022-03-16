@@ -16,13 +16,8 @@ app.get("/", (req, res) => {
 app.get("/users", async (req, res) => {
   const name = req.query.name;
   const email = req.query.email;
-  try {
-    const result = await userServices.getUsers(name, email);
-    res.send({ users_list: result });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("An error occured in the server");
-  }
+  const result = await userServices.getUsers(name, email);
+  res.status(200).send({ users_list: result });
 });
 
 // app.get("/users/id", async (req, res) => {
@@ -39,18 +34,12 @@ app.get("/users", async (req, res) => {
 
 // user authetication
 app.get("/login", async (req, res) => {
-  console.log("attempt");
   const email = req.query.email;
   const password = req.query.password;
-  try {
-    let result = await userServices.authUser(email, password);
-    result = { users_list: result };
-    //console.log(result)
-    res.send(result);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("An error occured in the server");
-  }
+  let result = await userServices.authUser(email, password);
+  result = { users_list: result };
+  //console.log(result)
+  res.status(200).send(result);
 });
 
 // app.get("/location", (req, res) => {
@@ -76,8 +65,10 @@ app.get("/login", async (req, res) => {
 app.post("/users", async (req, res) => {
   const userToAdd = req.body;
   const savedUser = await userServices.addUser(userToAdd);
-  if (savedUser) res.status(201).send(savedUser).end();
-  else res.status(500).end();
+  if (savedUser) 
+    res.status(201).send(savedUser).end();
+  else
+    res.status(500).end();
 });
 
 // app.post("/location", (req, res) => {
