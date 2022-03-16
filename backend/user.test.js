@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const UserModel = require("./user");
-const userData = { name: "John", email: "john@gmail.com", password: "password" };
+const testData = { name: "John", email: "john@gmail.com", password: "password" };
 
 describe("User Model Test", () => {
 
@@ -13,12 +13,12 @@ describe("User Model Test", () => {
     });
 
     it("create & save user successfully", async () => {
-        const validUser = new UserModel(userData);
+        const validUser = new UserModel(testData);
         const savedUser = await validUser.save();
         expect(savedUser._id).toBeDefined();
-        expect(savedUser.name).toBe(userData.name);
-        expect(savedUser.email).toBe(userData.email);
-        expect(savedUser.password).toBe(userData.password);
+        expect(savedUser.name).toBe(testData.name);
+        expect(savedUser.email).toBe(testData.email);
+        expect(savedUser.password).toBe(testData.password);
     });
 
     it("create user without required field should fail", async () => {
