@@ -58,7 +58,6 @@ function LoginForm(props) {
           <input className="btn" type="submit" value="Login" />
         </div>
       </form>
-
       <div className="text-center fs-6">
         {" "}
         <a href="/Signup">Don't have an account? Sign up!</a>{" "}
