@@ -28,5 +28,5 @@ jobs:
       - run: npm ci
       - run: cd frontend && npm ci
       - run: cd backend && npm ci
-      - run: npm install react-scripts
+      - run: npx jest --coverage
       - run: npm run build --if-present
