@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const userModel = require("./user");
 
 mongoose
-  .connect("mongodb://localhost:27017/users", {
+  .connect("mongodb+srv://erik_test0:12345@cluster0.pdi2t.mongodb.net/users?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
