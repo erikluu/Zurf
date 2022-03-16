@@ -1,3 +1,5 @@
+![Node.js CI](https://github.com/erikluu/Zurf/actions/workflows/node.js.yml/badge.svg)
+
 # Style
 
 We are using Prettier and ESLint, along with camelCase and brackets on the same line as the function declaration.
