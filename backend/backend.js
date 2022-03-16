@@ -89,7 +89,7 @@ app.get("/login", async (req, res) => {
   try {
     let result = await userServices.authUser(email, password);
     result = { users_list: result };
-    console.log(result)
+    //console.log(result)
     res.send(result);
   } catch (error) {
     console.log(error);
