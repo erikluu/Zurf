@@ -36,4 +36,4 @@ https://drive.google.com/file/d/15aXLCXb1MolxZ9BHV0tOR5p8QVCLlIBe/view?usp=shari
 https://drive.google.com/file/d/1P3qQhDdDaRY66DZTMGI15LgyAwXYmyN8/view?usp=sharing
 
 # Test Coverage
-![alt text](http://github/erikluu/Zurf/test_case_coverage_report.PNG)
+![alt text](https://github.com/erikluu/Zurf/blob/main/test_case_coverage_report.PNG)
